@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "taskBlink.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -137,6 +138,19 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
+	xTaskCreate( &vGreenBlinkTask,
+	             (signed char *)"GreenBlink",
+	             configMINIMAL_STACK_SIZE, 
+	             NULL,
+	             1,
+	             NULL );
+
+	xTaskCreate( &vRedBlinkTask, 
+	             (signed char *)"RedBlink",
+	             configMINIMAL_STACK_SIZE,
+	             NULL,
+	             1,
+	             NULL );
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
