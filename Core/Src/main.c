@@ -70,7 +70,6 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-xSemaphoreHandle ButtonPush;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -138,7 +137,6 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-    ButtonPush = osSemaphoreCreateBinary();
 	xTaskCreate( &vGreenBlinkTask,
 	             (signed char *)"GreenBlink",
 	             configMINIMAL_STACK_SIZE, 
@@ -388,7 +386,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : PA00 */
   GPIO_InitStruct.Pin   = GPIO_PIN_0;
   GPIO_InitStruct.Mode  = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull  = GPIO_NOPULL;
+  GPIO_InitStruct.Pull  = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
